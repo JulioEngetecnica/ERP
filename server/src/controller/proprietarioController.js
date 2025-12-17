@@ -1,16 +1,16 @@
 // routes/proprietarioroutes.js
-import Proprietario from "../models/Proprietario.js";
+import Usuario from "#models/Usuario.js";
 import jwt from 'jsonwebtoken';
 import dotenv from "dotenv";
 
 dotenv.config();
 
 /* ------------------------------
-   CREATE - novo proprietario
-   POST /api/proprietarios
+   CREATE - novo Usuario
+   POST /api/Usuarios
 ------------------------------ */
 export async function create(req, res) {
-  console.log("POST /api/proprietarios body:", req.body);
+  console.log("POST /api/usuario body:", req.body);
   const { nome, email, senha } = req.body ?? {};
 
   // validações básicas
@@ -22,16 +22,16 @@ export async function create(req, res) {
 
   try {
     // Verifica se já existe um usuário com o mesmo email
-    const existing = await Proprietario.findOne({ where: { email } });
+    const existing = await Usuario.findOne({ where: { email } });
     if (existing) {
       return res.status(400).json({ error: "Email já está em uso." });
     }
 
     // Cria novo registro no banco
-    const novoProprietario = await Proprietario.create({ nome, email, senha });
+    const novoUsuario = await Usuario.create({ nome, email, senha });
 
     // Remove o campo senha do retorno
-    const safeUser = { ...novoProprietario.toJSON() };
+    const safeUser = { ...novoUsuario.toJSON() };
     delete safeUser.senha;
 
     res.status(201).json({
@@ -64,7 +64,7 @@ export async function login(req, res) {
   }
 
   try {
-    const user = await Proprietario.findOne({ where: { email } });
+    const user = await Usuario.findOne({ where: { email } });
     console.log("Resultado findOne:", user && user.toJSON ? user.toJSON() : user);
 
     if (!user) return res.status(401).json({ error: "Email ou senha inválidos" });
@@ -78,7 +78,7 @@ export async function login(req, res) {
 
     // Gerar token JWT
     const token = jwt.sign(
-      { id: safeUser.id_proprietario, email: safeUser.email }, // payload
+      { id: safeUser.id_usuario, email: safeUser.email }, // payload
       SECRET_KEY, // chave secreta
       { expiresIn: '1h' } // expira em 1 hora
     );
@@ -98,90 +98,90 @@ export async function login(req, res) {
 
 /* ------------------------------
    GET - listar todos
-   GET /api/proprietarios
+   GET /api/usuarios
 ------------------------------ */
 export async function getAll(req, res) {
   try {
-    const proprietarios = await Proprietario.findAll();
-    res.json(proprietarios);
+    const usuarios = await Usuario.findAll();
+    res.json(usuarios);
   } catch (error) {
-    console.error("Erro ao buscar proprietarios:", error);
-    res.status(500).json({ error: "Erro ao buscar proprietarios" });
+    console.error("Erro ao buscar usuarios:", error);
+    res.status(500).json({ error: "Erro ao buscar usuarios" });
   }
 };
 
 /* ------------------------------
    GET - buscar por ID
-   GET /api/proprietarios/:id
+   GET /api/usuario/:id
 ------------------------------ */
 export async function getById(req, res) {
   const { id } = req.params;
 
   try {
-    const proprietario = await Proprietario.findByPk(id);
-    if (!proprietario) {
-      return res.status(404).json({ error: "Proprietario não encontrado" });
+    const usuario = await Usuario.findByPk(id);
+    if (!usuario) {
+      return res.status(404).json({ error: "Usuario não encontrado" });
     }
     
     res.json({
-      id: proprietario.id_proprietario,
-      nome: proprietario.nome,
-      email: proprietario.email
+      id: usuario.id_usuario,
+      nome: usuario.nome,
+      email: usuario.email
     });
   } catch (error) {
-    console.error("Erro ao buscar proprietario:", error);
-    res.status(500).json({ error: "Erro ao buscar proprietario" });
+    console.error("Erro ao buscar usuario:", error);
+    res.status(500).json({ error: "Erro ao buscar usuario" });
   }
 };
 
 /* ------------------------------
    PUT - atualizar por ID
-   PUT /api/proprietarios/:id
+   PUT /api/usuario/:id
 ------------------------------ */
 export async function updatebyId(req, res) {
   const { id } = req.params;
   const { nome, email, senha } = req.body;
 
   try {
-    const proprietario = await Proprietario.findByPk(id);
-    if (!proprietario) {
-      return res.status(404).json({ error: "Proprietario não encontrado" });
+    const usuario = await Usuario.findByPk(id);
+    if (!usuario) {
+      return res.status(404).json({ error: "Usuario não encontrado" });
     }
 
     // Atualiza apenas os campos enviados
-    if (nome) proprietario.nome = nome;
-    if (email) proprietario.email = email;
-    if (senha) proprietario.senha = senha;
+    if (nome) usuario.nome = nome;
+    if (email) usuario.email = email;
+    if (senha) usuario.senha = senha;
 
-    await proprietario.save();
-    const safeUser = { ...proprietario.toJSON() };
+    await usuario.save();
+    const safeUser = { ...usuario.toJSON() };
     delete safeUser.senha;
 
-    res.json({ message: "Proprietario atualizado com sucesso!", user: safeUser });
+    res.json({ message: "Usuario atualizado com sucesso!", user: safeUser });
   } catch (error) {
-    console.error("Erro ao atualizar proprietario:", error);
-    res.status(500).json({ error: "Erro ao atualizar proprietario" });
+    console.error("Erro ao atualizar usuario:", error);
+    res.status(500).json({ error: "Erro ao atualizar usuario" });
   }
 };
 
 /* ------------------------------
    DELETE - remover por ID
-   DELETE /api/proprietarios/:id
+   DELETE /api/usuario/:id
 ------------------------------ */
 export async function deleteById(req, res) {
   const { id } = req.params;
 
   try {
-    const proprietario = await Proprietario.findByPk(id);
-    if (!proprietario) {
-      return res.status(404).json({ error: "Proprietario não encontrado" });
+    const usuario = await Usuario.findByPk(id);
+    if (!usuario) {
+      return res.status(404).json({ error: "Usuario não encontrado" });
     }
 
-    await proprietario.destroy();
-    res.json({ message: "Proprietario removido com sucesso!" });
+    await usuario.destroy();
+    res.json({ message: "Usuario removido com sucesso!" });
   } catch (error) {
-    console.error("Erro ao remover proprietario:", error);
-    res.status(500).json({ error: "Erro ao remover proprietario" });
+    console.error("Erro ao remover usuario:", error);
+    res.status(500).json({ error: "Erro ao remover usuario" });
   }
 };
 

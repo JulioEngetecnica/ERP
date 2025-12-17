@@ -47,5 +47,14 @@ export const UsuarioController = {
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
+  },
+  async login(req, res) {
+    try {
+      const resultado = await UsuarioService.loginUsuario(req.body);
+      if (!resultado) return res.status(404).json({ error: 'Usuário não encontrado' });
+      res.json({ message: 'Usuário deletado com sucesso' });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
   }
 };
