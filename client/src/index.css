@@ -1,0 +1,48 @@
+:root2 {
+  --primary-color: #fb2a2a; /* cor principal do posto (customizável) */
+  --secondary-color: #d80202;
+  --background-color: #f5f6fa;
+  --text-color: #333;
+  --border-radius: 12px;
+  --transition: 0.3s ease;
+}
+:root {
+  /* PALETA PRINCIPAL */
+  --primary: #393DE5;
+  --primary-light: #4F52FF;
+  --primary-transparent: rgba(57, 61, 229, 0.15);
+
+  /* BACKGROUNDS */
+  --bg-dark: #1C1F26;
+  --bg-dark-light: #272B35;
+  --bg-hover: rgba(255,255,255,0.08);
+
+  /* TEXT COLORS */
+  --text-light: #ffffff;
+  --text-muted: #d0d3db;
+  --text-faded: #a9acb6;
+
+  /* BORDERS */
+  --border-color: rgba(255, 255, 255, 0.15);
+
+  /* RADIUS */
+  --radius: 8px;
+
+  /* TRANSIÇÕES PADRÃO */
+  --transition: 0.25s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}

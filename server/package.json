@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "imports": {
+    "#root/*": "./src/*",
+    "#models/*": "./src/models/*",
+    "#features/*": "./src/features/*",
+    "#routes": "./src/routes/routes.js",
+    "#connect": "./src/config/connect.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/server.js ",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "esm-module-alias": "^2.2.1",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.14.5",
+    "sequelize": "^6.37.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

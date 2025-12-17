@@ -1,0 +1,173 @@
+/* --- Sidebar Base --- */
+.sb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 85px;
+  height: 100vh;
+  background: var(--bg-dark);
+  border-right: 1px solid var(--border-color);
+  transition: width var(--transition);
+  overflow: hidden;
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.sb.open {
+  width: 280px;
+}
+
+/* Conteúdo Interno */
+.sb-inner {
+  height: 100%;
+  padding: 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Botão Toggle */
+.sb-toggle {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 22px;
+  width: 100%;
+  padding: 12px 5px;
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: background var(--transition);
+}
+
+.sb-toggle:hover {
+  background: var(--bg-hover);
+}
+
+/* Avatar e Nome */
+.sb-avatar {
+  width: 78px;
+  height: 78px;
+  display: block;
+  margin: 15px auto 0 auto;
+  border-radius: 50%;
+  border: 3px solid var(--primary);
+  object-fit: cover;
+}
+
+.sb-name {
+  color: var(--text-light);
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 18px;
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.sb.open .sb-name {
+  opacity: 1;
+}
+
+/* Botões de Menu */
+.sb-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 10px;
+  border-radius: var(--radius);
+  background: none;
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.sb-btn:hover {
+  background: var(--primary-transparent);
+  color: var(--primary-light);
+}
+
+/* Ícones */
+.sb-icon {
+  width: 42px;
+  height: 42px;
+  background: var(--bg-dark-light);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--text-light);
+  transition: background var(--transition), color var(--transition);
+}
+
+.sb-btn:hover .sb-icon {
+  background: var(--primary);
+  color: #fff;
+}
+
+.sb-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Submenu */
+.sb-submenu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition);
+  margin-left: 54px;
+}
+
+.sb-submenu.open {
+  max-height: 300px;
+}
+
+.sb-submenu-btn {
+  width: 100%;
+  padding: 8px 0;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  transition: color var(--transition);
+}
+
+.sb-submenu-btn:hover {
+  color: var(--primary-light);
+}
+
+/* Backdrop */
+.sb-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 900;
+  backdrop-filter: blur(3px);
+}
+.sb-submenu-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* Forçar cor e tamanho do SVG nos ícones */
+.sb-icon svg,
+.sb-submenu-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--text-light);
+}
+
+/* Submenu ícone alinhado à esquerda */
+.sb-submenu-icon {
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+}
