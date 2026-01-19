@@ -1,32 +1,31 @@
-import Usuario from '#models/Usuario.js'; // ajuste o path se necessário
+import db from "#models/index.js";
 
 export const UsuarioService = {
   async criarUsuario(data) {
-    const usuario = await Usuario.create(data);
-    return usuario;
+    return await db.Usuario.create(data);
   },
 
   async listarUsuarios() {
-    const usuarios = await Usuario.findAll();
-    return usuarios;
+    return await db.Usuario.findAll();
   },
 
   async buscarUsuarioPorId(id) {
-    const usuario = await Usuario.findByPk(id);
-    return usuario;
+    return await db.Usuario.findByPk(id);
   },
 
   async atualizarUsuario(id, data) {
-    const usuario = await Usuario.findByPk(id);
+    const usuario = await db.Usuario.findByPk(id);
     if (!usuario) return null;
+
     await usuario.update(data);
     return usuario;
   },
 
   async deletarUsuario(id) {
-    const usuario = await Usuario.findByPk(id);
+    const usuario = await db.Usuario.findByPk(id);
     if (!usuario) return null;
-    await usuario.destroy();
+
+    await usuario.destroy(); // soft delete por causa do paranoid
     return true;
-  }
+  },
 };

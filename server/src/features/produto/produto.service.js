@@ -1,26 +1,26 @@
-import Produto from "#models/Produto.js";
+import db from "#models/index.js";
 
 export const ProdutoService = {
   async getAll() {
-    return await Produto.findAll();
+    return await db.Produto.findAll();
   },
 
   async getById(id) {
-    return await Produto.findByPk(id);
+    return await db.Produto.findByPk(id);
   },
 
   async create(data) {
-    return await Produto.create(data);
+    return await db.Produto.create(data);
   },
 
   async update(id, data) {
-    const produto = await Produto.findByPk(id);
+    const produto = await db.Produto.findByPk(id);
     if (!produto) return null;
     return await produto.update(data);
   },
 
   async delete(id) {
-    const produto = await Produto.findByPk(id);
+    const produto = await db.Produto.findByPk(id);
     if (!produto) return false;
     await produto.destroy();
     return true;

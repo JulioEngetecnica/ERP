@@ -7,7 +7,9 @@ import produtoRoutes from "#features/produto/produto.routes.js";
 
 const router = express.Router();
 
-router.use('/produto', authenticateToken, produtoRoutes);
+// router.use('/produto', authenticateToken, produtoRoutes);
+router.use('/produto', produtoRoutes);
+
 
 // router.use('/produto', produtoRoutes);
 

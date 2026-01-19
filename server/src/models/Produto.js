@@ -1,23 +1,21 @@
-import { DataTypes } from "sequelize";
-import { sequelize } from "#connect";
+export default (sequelize, DataTypes) => {
+  const Produto = sequelize.define(
+    "Produto",
+    {
+      id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+      },
 
-const Produto = sequelize.define(
-  "Produto",
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true
-    },
-
-    nome: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        len: [1, 100]
-      }
-    },
+      nome: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+        validate: {
+          notEmpty: true,
+          len: [1, 100],
+        },
+      },
 
       preco: {
         type: DataTypes.FLOAT,
@@ -26,17 +24,18 @@ const Produto = sequelize.define(
 
       unidade_medida: {
         type: DataTypes.STRING(10),
-        allowNull: false
+        allowNull: false,
       },
-
     },
-  { 
-    tableName: "produto",
-    timestamps: true,
-    paranoid: true,
-    underscored: true
-  }
-);
+    {
+      tableName: "produto",
+      timestamps: true,
+      paranoid: true,
+      underscored: true,
+    }
+  );
 
-export default Produto;
 
+
+  return Produto;
+};

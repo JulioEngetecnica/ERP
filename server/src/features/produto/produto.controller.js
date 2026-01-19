@@ -22,6 +22,7 @@ export const ProdutoController = {
 
   async create(req, res) {
     try {
+      // console.log(req.body);
       const produto = await ProdutoService.create(req.body);
       res.status(201).json(produto);
     } catch (error) {

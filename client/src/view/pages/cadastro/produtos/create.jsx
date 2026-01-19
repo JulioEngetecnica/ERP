@@ -24,10 +24,10 @@ export default function CreateProductPage() {
 
   return (
     <div className="product-create-page">
-      <h1>Novo Produto</h1>
+      
 
       <div className="product-form-wrapper">
-        <h2>Dados do Produto</h2>
+        <h2>Novo Produto</h2>
 
         <ProductForm
           formData={formData}
