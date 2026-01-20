@@ -5,6 +5,8 @@ import UsuarioModel from "./Usuario.js";
 import ProdutoModel from "./Produto.js";
 import FuncionarioModel from "./Funcionario.js";
 import EstabelecimentoModel from "./Estabelecimento.js";
+import FuncionarioHorarioModel from "./FuncionarioHorario.js";
+import ServicoModel from "./Servico.js";
 
 
 const db = {};
@@ -16,6 +18,8 @@ db.Usuario = UsuarioModel(sequelize, DataTypes);
 db.Produto = ProdutoModel(sequelize, DataTypes);
 db.Funcionario = FuncionarioModel(sequelize, DataTypes);
 db.Estabelecimento = EstabelecimentoModel(sequelize, DataTypes);
+db.FuncionarioHorario = FuncionarioHorarioModel(sequelize, DataTypes);
+db.Servico = ServicoModel(sequelize, DataTypes);
 
 // Executa associações (se existirem)
 Object.values(db).forEach((model) => {

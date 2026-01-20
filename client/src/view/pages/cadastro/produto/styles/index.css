@@ -1,0 +1,184 @@
+/* ===========================================
+   LAYOUT DA PÁGINA DE PRODUTOS
+=========================================== */
+.produto-page {
+  width: calc(100vw - 100px);     /* respeita a sidebar */
+  margin-left: 85px;
+  padding: 30px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  background: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* ===========================================
+   CABEÇALHO (TÍTULO + BOTÃO)
+=========================================== */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #333;
+}
+
+.btn-new {
+  padding: 10px 18px;
+  background: #2d7bff;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.btn-new:hover {
+  background: #5596ff;
+}
+
+/* ===========================================
+   TABELA DE PRODUTOS
+=========================================== */
+.produto-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+}
+
+.produto-table th {
+  background: #eee;
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid #ddd;
+}
+
+.produto-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.produto-table tr:hover {
+  background: #fafafa;
+}
+
+/* imagens da tabela */
+.produto-table img {
+  border-radius: 4px;
+}
+
+/* inputs dentro da edição inline */
+.produto-table input,
+.produto-table select {
+  padding: 6px 8px;
+  width: 100%;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* ===========================================
+   BOTÕES DA TABELA (EDITAR / EXCLUIR)
+=========================================== */
+.produto-table button {
+  padding: 6px 10px;
+  margin-right: 6px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+  transition: 0.2s;
+}
+
+.produto-table button:nth-child(1) {
+  background: #ffaa00;
+}
+
+.produto-table button:nth-child(1):hover {
+  background: #ffbb33;
+}
+
+.produto-table button:nth-child(2) {
+  background: #ff4444;
+}
+
+.produto-table button:nth-child(2):hover {
+  background: #ff6666;
+}
+
+/* ===========================================
+   FORMULÁRIO DE CADASTRO
+=========================================== */
+.produto-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  width: 100%;
+  max-width: 500px;
+
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+}
+
+.produto-form h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.produto-form label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #444;
+}
+
+.produto-form input,
+.produto-form textarea,
+.produto-form select {
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  background: #fff;
+}
+
+.produto-form textarea {
+  min-height: 80px;
+}
+
+.produto-form input:focus,
+.produto-form textarea:focus,
+.produto-form select:focus {
+  border-color: #2d7bff;
+  box-shadow: 0 0 0 3px rgba(45,123,255,0.3);
+  outline: none;
+}
+
+.produto-form button {
+  margin-top: 10px;
+  padding: 12px 20px;
+  background: #2d7bff;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.produto-form button:hover {
+  background: #5596ff;
+}

@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src"), // <- Aqui você define o @ como src
+      '@': path.resolve(__dirname, 'src'),
+      '@api': path.resolve(__dirname, 'src/api/api.js'),
     },
   },
 });

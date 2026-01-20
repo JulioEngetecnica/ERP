@@ -5,7 +5,7 @@
   "type": "module",
   "imports": {
     "#root/*": "./src/*",
-    "#models/*": "./src/models/*",
+    "#models": "./src/models/index.js",
     "#features/*": "./src/features/*",
     "#routes": "./src/routes/routes.js",
     "#database": "./src/config/database.js"
@@ -20,6 +20,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "esm-module-alias": "^2.2.1",

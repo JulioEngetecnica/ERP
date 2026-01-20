@@ -4,9 +4,9 @@ export default (sequelize, DataTypes) => {
         "Estabelecimento",
         {
             id: {
-                type: DataTypes.UUID,
-                defaultValue: DataTypes.UUIDV4,
+                type: DataTypes.INTEGER,
                 primaryKey: true,
+                autoIncrement: true,
             },
 
             id_usuario: {
@@ -60,10 +60,7 @@ export default (sequelize, DataTypes) => {
 
             timestamps: true,
             paranoid: true,
-
-            createdAt: "created_at",
-            updatedAt: "updated_at",
-            deletedAt: "deleted_at",
+            underscored: true,
         }
     );
 
@@ -78,6 +75,20 @@ export default (sequelize, DataTypes) => {
         Estabelecimento.hasMany(models.Funcionario, {
             foreignKey: "id_estabelecimento",
             as: "funcionario",
+        });
+    };
+
+    Estabelecimento.associate = (models) => {
+        Estabelecimento.hasMany(models.Servico, {
+            foreignKey: "id_estabelecimento",
+            as: "servico",
+        });
+    };
+
+    Estabelecimento.associate = (models) => {
+        Estabelecimento.hasMany(models.Produto, {
+            foreignKey: "id_estabelecimento",
+            as: "produto",
         });
     };
 

@@ -1,4 +1,5 @@
 import { UsuarioService } from './usuario.service.js';
+import criarToken from '#root/auth/token.guard.js';
 
 export const UsuarioController = {
   async criar(req, res) {
@@ -52,7 +53,18 @@ export const UsuarioController = {
     try {
       const resultado = await UsuarioService.loginUsuario(req.body);
       if (!resultado) return res.status(404).json({ error: 'Usuário não encontrado' });
-      res.json({ message: 'Usuário deletado com sucesso' });
+      const sessao = criarToken(resultado);
+      const expiracao = sessao.expiresAt.getTime() - Date.now();
+
+      res.cookie('token', sessao.token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'strict',
+        maxAge: expiracao 
+      });
+
+      res.json({ message: 'Usuário logado com sucesso', user: sessao.userId });
+
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

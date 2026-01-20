@@ -1,3 +1,6 @@
+import criarToken from "#root/auth/token.guard.js";
+import bcrypt from "bcrypt";
+
 export default (sequelize, DataTypes) => {
   const Usuario = sequelize.define(
     "Usuario",
@@ -38,6 +41,7 @@ export default (sequelize, DataTypes) => {
     },
     {
       tableName: "usuario",
+      
       timestamps: true,
       paranoid: true,
       underscored: true,
@@ -51,6 +55,26 @@ export default (sequelize, DataTypes) => {
     });
   };
 
+
+  //------------------
+  //    HASH SENHA
+  //------------------
+  Usuario.beforeCreate(async (usuario, options) => {
+    const salt = await bcrypt.genSalt(10);
+    usuario.senha = await bcrypt.hash(usuario.senha, salt);
+  });
+
+  Usuario.beforeUpdate(async (usuario, options) => {
+    if (usuario.changed("senha")) { // só faz hash se a senha mudou
+      const salt = await bcrypt.genSalt(10);
+      usuario.senha = await bcrypt.hash(usuario.senha, salt);
+    }
+  });
+
+  // Método para verificar senha
+  Usuario.prototype.validarSenha = async function (senha) {
+    return await bcrypt.compare(senha, this.senha);
+  };
 
   return Usuario;
 };

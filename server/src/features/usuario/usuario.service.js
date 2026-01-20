@@ -1,22 +1,24 @@
-import db from "#models/index.js";
+import db from "#models";
 
 export const UsuarioService = {
   async criarUsuario(data) {
-    return await db.Usuario.create(data);
+    const usuario = await db.Usuario.create(data);
+    return usuario;
   },
 
   async listarUsuarios() {
-    return await db.Usuario.findAll();
+    const usuarios = await db.Usuario.findAll();
+    return usuarios;
   },
 
   async buscarUsuarioPorId(id) {
-    return await db.Usuario.findByPk(id);
+    const usuario = await db.Usuario.findByPk(id);
+    return usuario;
   },
 
   async atualizarUsuario(id, data) {
     const usuario = await db.Usuario.findByPk(id);
     if (!usuario) return null;
-
     await usuario.update(data);
     return usuario;
   },
@@ -24,8 +26,22 @@ export const UsuarioService = {
   async deletarUsuario(id) {
     const usuario = await db.Usuario.findByPk(id);
     if (!usuario) return null;
-
-    await usuario.destroy(); // soft delete por causa do paranoid
+    await usuario.destroy();
     return true;
   },
+
+  async loginUsuario(request) {
+    const email = request.email;
+    const senha = request.senha;
+    const usuario = await db.Usuario.findOne({ where: {email}  });
+    if (!usuario) {
+      return null; // usuário não encontrado
+    }
+    const senhaValida = await usuario.validarSenha(senha);
+    if (!senhaValida) {
+      return null; // senha inválida
+    }
+    
+    return usuario.dataValues.id; // login bem-sucedido
+  }
 };

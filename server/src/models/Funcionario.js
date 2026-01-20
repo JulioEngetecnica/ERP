@@ -4,9 +4,9 @@ export default (sequelize, DataTypes) => {
     "Funcionario",
     {
       id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
       },
 
       nome: {
@@ -39,7 +39,7 @@ export default (sequelize, DataTypes) => {
       },
 
       id_estabelecimento: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
           model: "estabelecimento",
@@ -52,10 +52,7 @@ export default (sequelize, DataTypes) => {
 
       timestamps: true,          // createdAt / updatedAt
       paranoid: true,            // deletedAt
-
-      createdAt: "created_at",
-      updatedAt: "updated_at",
-      deletedAt: "deleted_at",
+      underscored: true,
 
     }
   );
@@ -64,6 +61,13 @@ export default (sequelize, DataTypes) => {
     Funcionario.belongsTo(models.Estabelecimento, {
       foreignKey: "id_estabelecimento",
       as: "estabelecimento",
+    });
+  };
+
+  Funcionario.associate = (models) => {
+    Funcionario.hasMany(models.FuncionarioHorario, {
+      foreignKey: "id_funcionario",
+      as: "funcionario_horario",
     });
   };
 

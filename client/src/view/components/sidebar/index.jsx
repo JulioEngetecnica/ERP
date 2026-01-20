@@ -1,14 +1,19 @@
 // Sidebar.jsx
 import React, { useState } from "react";
 import styles from "./Sidebar.module.css";
-import "@/styles/index.css";
-import {itensMenu} from "./itensMenu";
+import "@/view/styles/index.css";
+import {useItensMenu} from "./itensMenu";
+import { Navigate, Outlet } from 'react-router-dom';
+
 
 export default function Sidebar({
   image = "https://ui-avatars.com/api/?name=Usuário+Teste",
   name = "Nome do Usuário",
-  menu = itensMenu,
 }) {
+  const menu = useItensMenu(() => {
+    setOpen(false);
+  });
+
   const [open, setOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
 
@@ -89,6 +94,11 @@ export default function Sidebar({
           ))}
         </div>
       </aside>
+
+      {/* Conteúdo principal */}
+      <main className={styles["sb-content"]}>
+        <Outlet /> {/* <--- Aqui o conteúdo das rotas filhas será renderizado */}
+      </main>
 
       {/* Backdrop para fechar o menu */}
       {open && <div className={styles["sb-backdrop"]} onClick={() => setOpen(false)} />}
