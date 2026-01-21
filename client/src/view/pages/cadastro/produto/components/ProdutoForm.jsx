@@ -9,7 +9,7 @@ export default function ProdutoForm({ formData, setFormData, onSubmit }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSelect = (e) => {
-    setFormData({ ...formData, measuringUnit: e.target.value });
+    setFormData({ ...formData, unidade_medida: e.target.value });
   };
 
   const handleImageChange = (e) => {

@@ -6,12 +6,15 @@ import {
   FaUserEdit,
   FaShieldAlt,
   FaUsers,
-  FaBox,
+  FaBoxes,
+  FaFileArchive,
   FaTruck,
   FaWarehouse,
   FaShoppingCart,
   FaFileInvoiceDollar,
   FaFileInvoice,
+  FaHandsHelping,
+  FaBoxTissue,
 } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
@@ -54,8 +57,13 @@ export const useItensMenu = (onNavigate) => {
       submenu: [
         {
           label: "Serviços",
-          icon: FaBox,
+          icon: FaHandsHelping,
           onClick: () => go("/servicos"),
+        },
+        {
+          label: "Produtos",
+          icon: FaBoxes,
+          onClick: () => go("/produtos"),
         },
         {
           label: "Clientes",

@@ -8,7 +8,8 @@
     "#models": "./src/models/index.js",
     "#features/*": "./src/features/*",
     "#routes": "./src/routes/routes.js",
-    "#database": "./src/config/database.js"
+    "#database": "./src/config/database.js",
+    "#auth/*": "./src/auth/*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

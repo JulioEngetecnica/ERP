@@ -1,4 +1,4 @@
-import criarToken from "#root/auth/token.guard.js";
+import criarToken from "#root/auth/OLD/token/token.provider.js";
 import bcrypt from "bcrypt";
 
 export default (sequelize, DataTypes) => {

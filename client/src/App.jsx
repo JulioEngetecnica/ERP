@@ -3,7 +3,8 @@ import Home from "./view/pages/home/home";
 import Sidebar from "./view/components/sidebar";
 import CriarServico from "./view/pages/cadastro/servico/create.jsx";
 import Servicos from "./view/pages/cadastro/servico";
-
+import CriarProduto from "./view/pages/cadastro/produto/create.jsx";
+import Produtos from "./view/pages/cadastro/produto";
 import PrivateRoute from '@/context/auth/PrivateRoute';
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -26,6 +27,8 @@ function App() {
             <Route path="painel" element={<Home />} /> {/* /dashboard */}
             <Route path="servicos" element={<Servicos />} /> 
             <Route path="servicos/novo" element={<CriarServico />} /> 
+            <Route path="produtos" element={<Produtos />} /> 
+            <Route path="produtos/novo" element={<CriarProduto />} /> 
           </Route>
         </Route>
       </Routes>
