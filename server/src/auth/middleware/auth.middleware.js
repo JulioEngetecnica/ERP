@@ -1,20 +1,20 @@
-import { validateJwt } from '../service/jwt.service.js';
+import { sendJwtCookie, validateJwt } from '../service/jwt.service.js';
 
 export async function authMiddleware(req, res, next) {
-  const token = req.headers.authorization?.replace('Bearer ', '');
+  const token = req.cookies?.access_token;
 
+  // console.log(req.cookies?.access_token);
   if (!token) {
     return res.status(401).json({ error: 'Token não informado' });
   }
-
   try {
     const result = await validateJwt(token);
 
-    req.user = result.payload;
-
-    if (result.status === 'refreshed') {
-      res.setHeader('x-refresh-token', result.token);
+    if (result.newJwt) {
+      sendJwtCookie(res, result.newJwt);
     }
+
+    req.user = result.payload;
 
     next();
   } catch (err) {

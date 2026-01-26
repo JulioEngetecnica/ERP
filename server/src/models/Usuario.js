@@ -1,4 +1,3 @@
-import criarToken from "#root/auth/OLD/token/token.provider.js";
 import bcrypt from "bcrypt";
 
 export default (sequelize, DataTypes) => {
@@ -49,7 +48,7 @@ export default (sequelize, DataTypes) => {
   );
 
   Usuario.associate = (models) => {
-    Usuario.hasMany(models.Estabelecimento, {
+    Usuario.hasOne(models.Estabelecimento, {
       foreignKey: "id_usuario",
       as: "estabelecimento",
     });

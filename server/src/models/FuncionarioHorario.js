@@ -51,5 +51,12 @@ export default (sequelize, DataTypes) => {
         }
     );
 
+    FuncionarioHorario.associate = (models) => {
+        FuncionarioHorario.belongsTo(models.Funcionario, {
+        foreignKey: "id_funcionario",
+        as: "funcionario",
+        });
+  };
+
     return FuncionarioHorario;
 };

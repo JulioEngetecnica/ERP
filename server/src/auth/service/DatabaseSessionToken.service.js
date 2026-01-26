@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import db from '#models';
 
-class SessionTokenService {
+class DatabaseSessionToken {
 
   static generate() {
     return crypto.randomBytes(32).toString('hex');
@@ -34,4 +34,4 @@ class SessionTokenService {
   }
 }
 
-export default SessionTokenService;
+export default DatabaseSessionToken;

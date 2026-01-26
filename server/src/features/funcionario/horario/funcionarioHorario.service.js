@@ -1,68 +1,56 @@
 import db from "#models";
+import { Op } from "sequelize";
 
 export default class FuncionarioHorarioService {
+
   static async setHorario({
-    idFuncionario,
-    diaSemana = null,
+    id_funcionario,
+    dia_semana = null,
     data = null,
-    atendimento,
+    atendimento = false,
     entrada = null,
     saida = null
   }) {
-    // 🔒 Regra: diaSemana OU data
-    if (!diaSemana && !data) {
-      throw new Error("Informe diaSemana ou data");
-    }
 
-    if (diaSemana && data) {
-      throw new Error("Use apenas diaSemana OU data, nunca os dois");
-    }
 
-    // 🔒 Regra: atendimento exige horário válido
-    if (atendimento === true) {
-      if (!this.compararHorario(entrada, saida)) {
-        throw new Error("Horário inválido");
-      }
-    }
-
-    const where = {
-      id_funcionario: idFuncionario,
-      ...(diaSemana !== null && { dia_semana: diaSemana }),
-      ...(data !== null && { data })
-    };
-
-    const [registro] = await db.HorarioFuncionario.findOrCreate({
-      where,
-      defaults: {
-        atendimento: atendimento ?? false,
-        entrada: atendimento ? entrada : null,
-        saida: atendimento ? saida : null
+    // 🔒 verifica conflito com horários existentes
+    const conflito = await db.FuncionarioHorario.findOne({
+      where: {
+        id_funcionario,
+        dia_semana,
+        data,
+        entrada: { [Op.lt]: saida },
+        saida: { [Op.gt]: entrada }
       }
     });
+    if (conflito) {
+      throw new Error("Intervalo conflita com outro horário do funcionário");
+    }
 
-    await registro.update({
-      atendimento,
-      entrada: atendimento ? entrada : null,
-      saida: atendimento ? saida : null
+    // 🔹 cria horário
+    const registro = await db.FuncionarioHorario.create({
+      id_funcionario,
+      dia_semana,
+      data,
+      entrada,
+      saida,
+      atendimento
     });
 
     return registro;
   }
 
-  static compararHorario(entrada, saida) {
-    if (!entrada || !saida) return false;
+  static async getHorarios({ id_funcionario, dia_semana = null, data = null }) {
+    if (!id_funcionario) throw new Error("id_funcionario é obrigatório");
+    const where = {
+      id_funcionario,
+      ...(dia_semana && { dia_semana }),
+      ...(data && { data })
+    };
 
-    const [h1, m1] = entrada.split(":").map(Number);
-    const [h2, m2] = saida.split(":").map(Number);
-
-    let inicio = h1 * 60 + m1;
-    let fim = h2 * 60 + m2;
-
-    // Permite virar o dia
-    if (fim <= inicio) {
-      fim += 1440;
-    }
-
-    return fim > inicio;
+    const registros = await db.FuncionarioHorario.findAll({ where, order: [['entrada', 'ASC']] });
+ 
+    return registros;
   }
+
 }

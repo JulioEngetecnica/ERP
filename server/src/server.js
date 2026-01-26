@@ -3,12 +3,17 @@ import express from "express";
 import cors from "cors";
 import { connectDB } from "#database";
 import routes from "#routes";
+import cookieParser from 'cookie-parser';
 
 // import setHorario from "./features/configuracoes/horario/horarioFuncionario.controller.js";
 
 const app = express();
-app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
+app.use(cors({
+  origin: 'http://localhost:5173', // porta do seu front
+  credentials: true
+}));
 
 app.use("/api", routes);
 

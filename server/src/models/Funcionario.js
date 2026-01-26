@@ -58,18 +58,19 @@ export default (sequelize, DataTypes) => {
   );
 
   Funcionario.associate = (models) => {
+    // Um funcionário pertence a um estabelecimento
     Funcionario.belongsTo(models.Estabelecimento, {
       foreignKey: "id_estabelecimento",
       as: "estabelecimento",
     });
-  };
 
-  Funcionario.associate = (models) => {
+    // Um funcionário tem muitos horários
     Funcionario.hasMany(models.FuncionarioHorario, {
       foreignKey: "id_funcionario",
       as: "funcionario_horario",
     });
   };
 
+  
   return Funcionario;
 };

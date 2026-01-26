@@ -69,23 +69,17 @@ export default (sequelize, DataTypes) => {
             foreignKey: "id_usuario",
             as: "usuario",
         });
-    };
 
-    Estabelecimento.associate = (models) => {
         Estabelecimento.hasMany(models.Funcionario, {
             foreignKey: "id_estabelecimento",
             as: "funcionario",
         });
-    };
 
-    Estabelecimento.associate = (models) => {
         Estabelecimento.hasMany(models.Servico, {
             foreignKey: "id_estabelecimento",
             as: "servico",
         });
-    };
 
-    Estabelecimento.associate = (models) => {
         Estabelecimento.hasMany(models.Produto, {
             foreignKey: "id_estabelecimento",
             as: "produto",

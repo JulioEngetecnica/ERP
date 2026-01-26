@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import { getJwtSigningKey } from '../config/jwtKeyCache.js';
-import { refreshJwt } from './jwtRefresh.service.js';
+import { getJwtSigningKey, getOldJwtSigningKey } from '../key/jwt.key.js';
+import DatabaseSessionToken from './DatabaseSessionToken.service.js';
 
 export function createJwt({ userId, sessionToken }) {
   if (!userId || !sessionToken) {
@@ -14,17 +14,48 @@ export function createJwt({ userId, sessionToken }) {
   );
 }
 
-export async function validateJwt(token) {
+export async function validateJwt(jwtToken) {
   try {
     return {
-      status: 'valid',
-      payload: jwt.verify(token, getJwtSigningKey())
+      payload: jwt.verify(jwtToken, getJwtSigningKey())
     };
   } catch (err) {
-    if (err instanceof jwt.TokenExpiredError) {
-      return await refreshJwt(token);
+    try {
+        const oldToken = jwt.verify(jwtToken, getOldJwtSigningKey());
+        const newJwt = await refreshJwt(oldToken);
+        return {
+          newJwt: newJwt,
+          payload: jwt.verify(newJwt, getJwtSigningKey())
+        };
+    } catch (err) {
+      throw new Error('Token inválido');
     }
-
-    throw new Error('Token inválido');
   }
+}
+
+export function sendJwtCookie(res, jwtToken) {
+  res.cookie('access_token', jwtToken, {
+    httpOnly: true,
+    secure: false,
+    sameSite: 'lax',
+    maxAge: 2 * 60 * 60 * 1000
+  });
+}
+
+async function refreshJwt(oldToken) {
+  const valid = await DatabaseSessionToken.validate(
+    oldToken.userId,
+    oldToken.sessionToken
+  );
+
+  if (!valid) {
+    throw new Error('Sessão revogada');
+  }
+
+  const newJwt = createJwt({
+    userId: oldToken.userId,
+    sessionToken: oldToken.sessionToken
+  });
+
+  return newJwt;
 }
