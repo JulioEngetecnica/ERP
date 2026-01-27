@@ -4,7 +4,6 @@ import { UsuarioController } from './usuario.controller.js';
 const router = Router();
 
 // CRUD de Usuário
-router.post('/login/', UsuarioController.login);
 router.post('/', UsuarioController.criar);
 router.get('/', UsuarioController.listar);
 router.get('/:id', UsuarioController.buscarPorId);

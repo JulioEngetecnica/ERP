@@ -10,7 +10,7 @@ export function createJwt({ userId, sessionToken }) {
   return jwt.sign(
     { userId, sessionToken },
     getJwtSigningKey(),
-    { expiresIn: '30m' }
+    { expiresIn: process.env.JWT_EXPIRE_IN_MINUTES + 'm' }
   );
 }
 
@@ -21,8 +21,13 @@ export async function validateJwt(jwtToken) {
     };
   } catch (err) {
     try {
-        const oldToken = jwt.verify(jwtToken, getOldJwtSigningKey());
-        const newJwt = await refreshJwt(oldToken);
+      let oldToken;
+      if (err.name === 'TokenExpiredError') {
+        oldToken = jwt.verify(jwtToken, getJwtSigningKey(), { ignoreExpiration: true });
+      } else {
+        oldToken = jwt.verify(jwtToken, getOldJwtSigningKey(), { ignoreExpiration: true }); 
+      }
+      const newJwt = await refreshJwt(oldToken);
         return {
           newJwt: newJwt,
           payload: jwt.verify(newJwt, getJwtSigningKey())
@@ -38,7 +43,7 @@ export function sendJwtCookie(res, jwtToken) {
     httpOnly: true,
     secure: false,
     sameSite: 'lax',
-    maxAge: 2 * 60 * 60 * 1000
+    maxAge: process.env.COOKIE_MAX_AGE_HOURS * 60 * 60 * 1000
   });
 }
 
