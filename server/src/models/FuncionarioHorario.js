@@ -11,6 +11,10 @@ export default (sequelize, DataTypes) => {
             id_funcionario: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
+                references: {
+                    model: "funcionario",
+                    key: "id",
+                },
             },
 
             dia_semana: {
@@ -53,10 +57,10 @@ export default (sequelize, DataTypes) => {
 
     FuncionarioHorario.associate = (models) => {
         FuncionarioHorario.belongsTo(models.Funcionario, {
-        foreignKey: "id_funcionario",
-        as: "funcionario",
+            foreignKey: "id_funcionario",
+            as: "funcionario",
         });
-  };
+    };
 
     return FuncionarioHorario;
 };

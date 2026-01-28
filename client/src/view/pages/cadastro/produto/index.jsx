@@ -14,8 +14,8 @@ export default function ProdutoPage() {
   return (
     <div className="produto-page">
       <div className="header">
-        <h1>Serviços</h1>
-        <Link to="novo"  className="btn-new">Novo Serviço</Link>
+        <h1>Produtos</h1>
+        <Link to="novo"  className="btn-new">Novo Produto</Link>
       </div>
 
       <ProdutoTable

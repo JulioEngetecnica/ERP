@@ -64,7 +64,6 @@ export default function Home() {
 
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
-      {/* Sidebar fictícia de 100px */}
 
       {/* Conteúdo principal */}
       <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>

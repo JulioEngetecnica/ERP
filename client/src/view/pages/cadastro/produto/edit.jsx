@@ -28,7 +28,7 @@ export default function EditProdutoPage() {
 
   return (
     <div>
-      <h1>Editar Serviço</h1>
+      <h1>Editar Produto</h1>
       <ProdutoForm
         formData={formData}
         setFormData={setFormData}

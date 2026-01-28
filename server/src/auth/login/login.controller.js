@@ -22,7 +22,6 @@ export const LoginController = {
       });
 
       sendJwtCookie(res, jwtToken);
-      
       return res.json({
         message: 'Usuário logado com sucesso',
       });

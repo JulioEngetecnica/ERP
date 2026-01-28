@@ -24,9 +24,7 @@ export function useLogin() {
     setError(null);
 
     try {
-      const data = await loginUser(form);
-      navigate('/servicos');
-      return data;
+      await loginUser(form);
     } catch (err) {
       setError("Email ou senha incorretos");
       throw err;

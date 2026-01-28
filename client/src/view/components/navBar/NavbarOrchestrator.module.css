@@ -1,0 +1,18 @@
+/* navbar/NavbarOrchestrator.module.css */
+
+.desktopOnly { display: block; }
+.mobileOnly { display: none; }
+
+.content {
+  min-height: 100vh;
+}
+
+/* Mobile: mostra bottom bar e dá espaço no conteúdo */
+@media (max-width: 768px) {
+  .desktopOnly { display: none; }
+  .mobileOnly { display: block; }
+
+  .content {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+}

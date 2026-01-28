@@ -2,17 +2,9 @@ import { loginRequest } from "../api/usuarioApi";
 
 export const loginUser = async ({ email, senha }) => {
   try {
-    const data = await loginRequest(email, senha);
 
-    if (!data.user) {
-      throw new Error("Erro no Login");
-    }
+  await loginRequest(email, senha);
 
-    // Salva token
-    localStorage.setItem("user", data.user);
-
-    
-    return data;
   } catch (error) {
     throw error;
   }

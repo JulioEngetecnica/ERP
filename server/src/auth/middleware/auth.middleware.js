@@ -15,7 +15,6 @@ export async function authMiddleware(req, res, next) {
     }
 
     req.user = result.payload;
-
     next();
   } catch (err) {
     return res.status(401).json({ error: err.message });

@@ -59,7 +59,7 @@ export default function ProdutoTable({
     },
 
 
-    { field: "preco", headerName: "Valor do Serviço", flex: 1, editable: true, type: "number" },
+    { field: "preco", headerName: "Valor do Produto", flex: 1, editable: true, type: "number" },
 
     {
       field: "actions",

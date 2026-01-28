@@ -36,7 +36,7 @@ export default function ProdutoForm({ formData, setFormData, onSubmit }) {
         {/* COLUNA ESQUERDA - FORMULÁRIO */}
         <Col md={8}>
           <Form.Group controlId="formName" className="mb-3">
-            <Form.Label>Nome do Serviço</Form.Label>
+            <Form.Label>Nome do Produto</Form.Label>
             <Form.Control
               type="text"
               name="nome"
@@ -110,14 +110,14 @@ export default function ProdutoForm({ formData, setFormData, onSubmit }) {
           </Form.Group>
 
           <Button type="submit" variant="primary" className="mt-3">
-            Salvar Serviço
+            Salvar Produto
           </Button>
         </Col>
 
         {/* COLUNA DIREITA - IMAGEM */}
         <Col md={4}>
           <Form.Group controlId="formImage" className="mb-3">
-            <Form.Label>Imagem do Serviço</Form.Label>
+            <Form.Label>Imagem do Produto</Form.Label>
             <div
               className="d-flex justify-content-center align-items-center position-relative"
               style={{

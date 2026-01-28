@@ -1,26 +1,16 @@
-// Sidebar.jsx
-import React, { useState } from "react";
-import styles from "./Sidebar.module.css";
-import "@/view/styles/index.css";
-import {useItensMenu} from "./itensMenu";
-import { Navigate, Outlet } from 'react-router-dom';
+// desktop/DesktopSideNav.jsx
+import React from "react";
+import styles from "./DesktopSideNav.module.css";
 
-
-export default function Sidebar({
-  image = "https://ui-avatars.com/api/?name=Usuário+Teste",
-  name = "Nome do Usuário",
+export default function DesktopSideNav({
+  open,
+  setOpen,
+  openSubmenu,
+  toggleSubmenu,
+  menu,
+  image,
+  name,
 }) {
-  const menu = useItensMenu(() => {
-    setOpen(false);
-  });
-
-  const [open, setOpen] = useState(false);
-  const [openSubmenu, setOpenSubmenu] = useState(null);
-
-  const toggleSubmenu = (index) => {
-    setOpenSubmenu((prev) => (prev === index ? null : index));
-  };
-
   return (
     <>
       <aside
@@ -31,20 +21,11 @@ export default function Sidebar({
       >
         <div className={styles["sb-inner"]} onClick={(e) => e.stopPropagation()}>
           <img className={styles["sb-avatar"]} src={image} alt={name} />
-          {/* Botão interno para abrir/fechar */}
+
           <button className={styles["sb-toggle"]} onClick={() => setOpen((v) => !v)}>
             ☰
           </button>
 
-          {/* Avatar + Nome somente quando aberto */}
-          {/* {open && (
-            <>
-              <img className={styles["sb-avatar"]} src={image} alt={name} />
-              <div className={styles["sb-name"]}>{name}</div>
-            </>
-          )} */}
-
-          {/* Itens do menu */}
           {menu.map((item, index) => (
             <div key={index} className={styles["sb-item-wrapper"]}>
               <button
@@ -53,23 +34,16 @@ export default function Sidebar({
                   e.stopPropagation();
                   setOpen(true);
 
-                  if (item.submenu) {
-                    toggleSubmenu(index);
-                  } else {
-                    item.onClick?.();
-                  }
+                  if (item.submenu) toggleSubmenu(index);
+                  else item.onClick?.();
                 }}
               >
-                {/* Ícone / Avatar do item */}
                 <div className={styles["sb-icon"]}>
                   {item.icon && React.createElement(item.icon, { size: 26 })}
                 </div>
-
-                {/* Texto somente quando expandido */}
                 {open && <span>{item.label}</span>}
               </button>
 
-              {/* Submenu */}
               {item.submenu && (
                 <div
                   className={`${styles["sb-submenu"]} ${
@@ -96,12 +70,6 @@ export default function Sidebar({
         </div>
       </aside>
 
-      {/* Conteúdo principal */}
-      <main className={styles["sb-content"]}>
-        <Outlet /> {/* <--- Aqui o conteúdo das rotas filhas será renderizado */}
-      </main>
-
-      {/* Backdrop para fechar o menu */}
       {open && <div className={styles["sb-backdrop"]} onClick={() => setOpen(false)} />}
     </>
   );
