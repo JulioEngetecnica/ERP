@@ -22,7 +22,7 @@ export const ServicoController = {
 
   async create(req, res) {
     try {
-      const servico = await ServicoService.create(req.body);
+      const servico = await ServicoService.create(req.body, req.user.userId);
       res.status(201).json(servico);
     } catch (error) {
       res.status(400).json({ error: error.message });

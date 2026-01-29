@@ -19,12 +19,14 @@ export default function DesktopSideNav({
           if (!open) setOpen(true);
         }}
       >
-        <div className={styles["sb-inner"]} onClick={(e) => e.stopPropagation()}>
-          <img className={styles["sb-avatar"]} src={image} alt={name} />
-
+        <div className={styles["sb-inner"]} onClick={(e) => { e.stopPropagation(); setOpen(true); }}>
           <button className={styles["sb-toggle"]} onClick={() => setOpen((v) => !v)}>
-            ☰
+            <img className={styles["sb-avatar"]} src={image} alt={name} />
+            {open && <div className={styles["sb-name"]}>{name}</div>}
           </button>
+          {/* <button className={styles["sb-toggle"]} onClick={() => setOpen((v) => !v)}>
+            ☰
+          </button> */}
 
           {menu.map((item, index) => (
             <div key={index} className={styles["sb-item-wrapper"]}>
@@ -46,9 +48,8 @@ export default function DesktopSideNav({
 
               {item.submenu && (
                 <div
-                  className={`${styles["sb-submenu"]} ${
-                    openSubmenu === index && open ? styles.open : ""
-                  }`}
+                  className={`${styles["sb-submenu"]} ${openSubmenu === index && open ? styles.open : ""
+                    }`}
                 >
                   {item.submenu.map((sub, subIndex) => (
                     <button

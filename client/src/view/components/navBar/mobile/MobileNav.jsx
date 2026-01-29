@@ -12,9 +12,9 @@ export default function MobileNav({
   image,
   name,
 }) {
-  // pega o item "Perfil" por label (fallback: segundo item)
-  const profileItem =
-    menu.find((x) => String(x.label || "").toLowerCase() === "perfil") || menu[1] || menu[0];
+  // pega o item "Inicio" por label (fallback: segundo item)
+  const inicioItem =
+    menu.find((x) => String(x.label || "").toLowerCase() === "início") || menu[1] || menu[0];
 
   return (
     <>
@@ -33,16 +33,16 @@ export default function MobileNav({
           aria-label="Perfil"
           onClick={(e) => {
             e.stopPropagation();
-            if (profileItem?.submenu) {
+            if (inicioItem?.submenu) {
               setOpen(true);
-              toggleSubmenu(menu.indexOf(profileItem));
+              toggleSubmenu(menu.indexOf(inicioItem));
             } else {
-              profileItem?.onClick?.();
+              inicioItem?.onClick?.();
             }
           }}
         >
           <span className={styles.svgWrap}>
-            {profileItem?.icon && React.createElement(profileItem.icon, { size: 24 })}
+            {inicioItem?.icon && React.createElement(inicioItem.icon, { size: 24 })}
           </span>
         </button>
 

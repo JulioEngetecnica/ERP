@@ -18,6 +18,7 @@ import {
 } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
+import Logout from "../logout/logoutApi";
 
 // Dados do menu
 export const useItensMenu = (onNavigate) => {
@@ -92,7 +93,7 @@ export const useItensMenu = (onNavigate) => {
       label: "Sair",
       icon: FaSignOutAlt,
       onClick: () => {
-        // limpar auth se existir
+        Logout();
         go("/login");
       },
     },

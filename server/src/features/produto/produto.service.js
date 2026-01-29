@@ -9,7 +9,16 @@ export const ProdutoService = {
     return await db.Produto.findByPk(id);
   },
 
-  async create(data) {
+  async create(data, user) {
+    const estabelecimento = await db.Estabelecimento.findOne({
+      where: { id_usuario : user }
+    });
+
+    data = {
+      ...data,
+      id_estabelecimento: estabelecimento.id,
+    };
+
     return await db.Produto.create(data);
   },
 

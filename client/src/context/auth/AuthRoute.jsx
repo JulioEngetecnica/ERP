@@ -2,6 +2,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import api from "@api";
+import CircularProgress from "@mui/material/CircularProgress";
 
 export default function AuthRoute() {
   const [loading, setLoading] = useState(true);
@@ -23,7 +24,7 @@ export default function AuthRoute() {
   }, []);
 
   if (loading) {
-    return <p>Carregando...</p>; // ou spinner
+    return <CircularProgress color="inherit" />;
   }
 
   if (!authenticated) {

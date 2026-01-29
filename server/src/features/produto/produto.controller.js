@@ -22,8 +22,7 @@ export const ProdutoController = {
 
   async create(req, res) {
     try {
-      // console.log(req.body);
-      const produto = await ProdutoService.create(req.body);
+      const produto = await ProdutoService.create(req.body, req.user.userId);
       res.status(201).json(produto);
     } catch (error) {
       res.status(400).json({ error: error.message });
