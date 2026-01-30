@@ -5,7 +5,7 @@ import CriarServico from "./view/pages/cadastro/servico/create.jsx";
 import Servicos from "./view/pages/cadastro/servico";
 import CriarProduto from "./view/pages/cadastro/produto/create.jsx";
 import Produtos from "./view/pages/cadastro/produto";
-import AuthRoute from '@/context/auth/AuthRoute';
+import AuthRoute from '@/auth/AuthRoute';
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 

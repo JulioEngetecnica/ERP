@@ -9,10 +9,13 @@ import { useItensMenu } from "./itens/itensMenu";
 
 import { Outlet } from "react-router-dom";
 
+const user =  JSON.parse(localStorage.getItem("user"));
+
 export default function Navbar({
-  image = "https://ui-avatars.com/api/?name=Usuário+Teste",
-  name = "Nome do Usuário",
+  image = user?.imagem || `https://ui-avatars.com/api/?name=${user?.nome}`,
+  name = user?.nome,
 }) {
+
   const [open, setOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState(null);
 

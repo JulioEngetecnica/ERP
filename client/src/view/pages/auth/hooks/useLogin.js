@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { loginUser } from "../services/authService";
-import { useNavigate } from 'react-router-dom';
 
 export function useLogin() {
-  const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
     password: "",

@@ -11,8 +11,6 @@ export const produtoApi = {
   },
 
   create(data) {
-        console.log(data);
-
     return api.post("/produto/", data);
   },
 

@@ -13,17 +13,22 @@ export const LoginController = {
       }
 
       // Cria token de sessão (DB)
-      const sessionToken = await DatabaseSessionToken.create(user);
+      const sessionToken = await DatabaseSessionToken.create(user.id);
 
       // Gera JWT
       const jwtToken = createJwt({
-        userId: user,
+        userId: user.id,
         sessionToken
       });
 
       sendJwtCookie(res, jwtToken);
       return res.json({
         message: 'Usuário logado com sucesso',
+        user : {
+          nome:user.nome,
+          email: user.email,
+          imagem: user.imagem
+        }
       });
 
     } catch (error) {

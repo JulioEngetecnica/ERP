@@ -13,6 +13,6 @@ export const LoginService = {
       return null; // senha inválida
     }
     
-    return usuario.dataValues.id; // login bem-sucedido
+    return usuario.dataValues; // login bem-sucedido
   }
 };
